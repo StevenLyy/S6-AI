@@ -122,3 +122,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
+
+*.zip
+
+# image files
+/ann/exercise_submission/seg_pred/
+/ann/exercise_submission/seg_test/
+/ann/exercise_submission/seg_train/
+
+/cnn/exercise_submission/seg_pred/
+/cnn/exercise_submission/seg_test/
+/cnn/exercise_submission/seg_train/
+=======
+>>>>>>> parent of 6473194 (Refactor folder structure)
