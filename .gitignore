@@ -134,3 +134,10 @@ dmypy.json
 /cnn/exercise_submission/seg_pred/
 /cnn/exercise_submission/seg_test/
 /cnn/exercise_submission/seg_train/
+
+# security
+*.key
+*.txt
+
+# idea
+.idea
