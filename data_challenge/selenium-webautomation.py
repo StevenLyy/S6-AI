@@ -1,3 +1,4 @@
+import os
 import time
 
 from security.decrypter import decrypt
@@ -11,6 +12,10 @@ from selenium.webdriver.common.keys import Keys
 
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
+download_dir = "C:/Users/Beven/Downloads"
+# prefs = {"download.default_directory": download_dir}
+# chrome_options.add_experimental_option("prefs", prefs)
+chrome_options.add_argument("--start-maximized")
 
 website_url = "https://mijn.sitedish.nl/"
 
@@ -34,13 +39,13 @@ def navigate_to_dishes():
     wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[3]/div[6]/a'))).click()
 
 
-def enter_dates(start_date, end_date, type):
+def enter_dates_and_export(start_date, end_date, system):
     wait.until(EC.visibility_of_element_located(
         (By.XPATH, '/html/body/div[3]/div[2]/form/table/tbody/tr[1]/td[2]/input[1]')))
-    if type == "thuisbezorgd":
-
-    elif type == "POS":
-
+    if system == "POS":
+        driver.find_element(By.XPATH, '/html/body/div[3]/div[2]/form/table/tbody/tr[2]/td[2]/input[2]').click()
+    elif system == "Thuisbezorgd":
+        driver.find_element(By.XPATH, '/html/body/div[3]/div[2]/form/table/tbody/tr[2]/td[2]/input[3]').click()
     else:
         return ValueError("Unknown type")
 
@@ -52,6 +57,13 @@ def enter_dates(start_date, end_date, type):
         start_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
         current_date += timedelta(days=7)
         end_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
+        driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[1]/a[1]').click()
+        time.sleep(2)
+        downloaded_file = max([download_dir + "/" + f for f in os.listdir(download_dir)], key=os.path.getctime)
+        new_file_name = f"{system}_{current_date}_{current_date}.csv"
+        new_file_path = os.path.join(download_dir, new_file_name)
+
+        os.rename(downloaded_file, new_file_path)
         start_date_field.clear()
         end_date_field.clear()
 
@@ -60,5 +72,4 @@ if __name__ == "__main__":
     driver.get(website_url)
     login()
     navigate_to_dishes()
-    enter_dates(start_date=date(2021, 7, 1), end_date=date(2024, 4, 30))
-
+    enter_dates_and_export(start_date=date(2021, 7, 1), end_date=date(2024, 4, 30), system="POS")
