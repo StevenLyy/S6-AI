@@ -135,9 +135,14 @@ dmypy.json
 /cnn/exercise_submission/seg_test/
 /cnn/exercise_submission/seg_train/
 
+/data_challenge/data/
+
 # security
 *.key
 *.txt
 
 # idea
 .idea
+
+# models
+*.pkl
