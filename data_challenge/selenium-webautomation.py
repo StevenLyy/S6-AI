@@ -78,6 +78,6 @@ def enter_dates_and_export(start_date, end_date, system):
 
 if __name__ == "__main__":
     driver.get(website_url)
-    login("key.key", "vxvxvxv.txt")
+    login("security/key.key", "security/vxvxvxv.txt")
     navigate_to_dishes()
     enter_dates_and_export(start_date=date(2021, 7, 1), end_date=date(2024, 4, 30), system="Thuisbezorgd")
