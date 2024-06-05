@@ -60,10 +60,10 @@ def enter_dates_and_export(start_date, end_date, system):
 
     current_date = start_date
     while current_date <= end_date:
-        print(current_date, current_date + timedelta(days=1))
-        new_file_name = f"{system}__{current_date}__{current_date + timedelta(days=1)}.csv"
+        print(current_date, current_date + timedelta(days=7))
+        new_file_name = f"{system}__{current_date}__{current_date + timedelta(days=7)}.csv"
         start_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
-        current_date += timedelta(days=1)
+        current_date += timedelta(days=7)
         end_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
         driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[1]/a[1]').click()
         time.sleep(4)
