@@ -65,12 +65,15 @@ def enter_dates_and_export(start_date, end_date, system):
         start_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
         end_date_field.send_keys(current_date.strftime("%d-%m-%Y"))
         driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[1]/a[1]').click()
+
         time.sleep(4)
+        downloaded_file = max([download_dir + "/" + f for f in os.listdir(download_dir)],
+                              key=os.path.getctime)
 
-        downloaded_file = max([download_dir + "/" + f for f in os.listdir(download_dir)], key=os.path.getctime)
-        new_file_path = os.path.join(download_dir, new_file_name)
+        if downloaded_file.endswith('.csv'):
+            new_file_path = os.path.join(download_dir, new_file_name)
+            os.rename(downloaded_file, new_file_path)
 
-        os.rename(downloaded_file, new_file_path)
         start_date_field.clear()
         end_date_field.clear()
         current_date += timedelta(days=1)
